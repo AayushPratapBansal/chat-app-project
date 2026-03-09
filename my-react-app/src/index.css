@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* Your custom styles below */
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+/* small helper to ensure body bg
+body {
+  @apply bg-gray-100;
+} */
