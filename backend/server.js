@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const http = require("http");
+require("dotenv").config();
 const { Server } = require("socket.io");
 const cors = require("cors");
 const connectDB = require("./config/db");
@@ -24,7 +25,7 @@ const io = new Server(server, {
 });
 const users = {}; 
 io.on("connection", (socket) => {
-  console.log("🟢 User connected:", socket.id);
+  console.log(" User connected:", socket.id);
 
   socket.on("join", (username) => {
     users[username] = socket.id;
