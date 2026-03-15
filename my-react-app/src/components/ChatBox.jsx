@@ -13,9 +13,11 @@ export default function ChatBox({ selectedUser }) {
 
     useEffect(() => {
     if (!user) return;
-    
-socketRef.current = io("http://localhost:5000");
-    
+    const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
+
+socketRef.current = io(SOCKET_URL, {
+  transports: ["websocket"],
+});
 
     socketRef.current.emit("join", user.username);
     
