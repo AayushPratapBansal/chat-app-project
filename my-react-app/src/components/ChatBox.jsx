@@ -55,18 +55,12 @@ socketRef.current = io(SOCKET_URL, {
 
   useEffect(() => {
     if (!socketRef.current || !selectedUser) return;
-    const handleReceiveMessage = (msg) => {
+
+const handleReceiveMessage = (msg) => {
   setMessages((prev) => {
 
     
-    const filtered = prev.filter(
-      (m) =>
-        !(
-          m.temp &&
-          m.sender === msg.sender &&
-          m.content === msg.content
-        )
-    );
+    const filtered = prev.filter((m) => m._id !== msg.tempId);
 
     if (
       (msg.sender === user.username && msg.receiver === selectedUser) ||
@@ -77,27 +71,7 @@ socketRef.current = io(SOCKET_URL, {
 
     return filtered;
   });
-};
-    // const handleReceiveMessage = (msg) => {
-    //   setMessages((prev) => {
-    //       const exists = prev.some(m => m._id === msg._id || 
-    //       (m.content === msg.content && 
-    //        m.sender === msg.sender && 
-    //        m.timestamp === msg.timestamp));
-        
-    //     if (exists) return prev;
-        
-      
-    //     if (
-    //       (msg.sender === user.username && msg.receiver === selectedUser) ||
-    //       (msg.sender === selectedUser && msg.receiver === user.username)
-    //     ) {
-    //       return [...prev, msg];
-    //     }
-    //     return prev;
-    //   });
-    // };
-    
+};    
     socketRef.current.on("receive_message", handleReceiveMessage);
     
     return () => {
