@@ -1,13 +1,12 @@
-const User = require("../models/userModel");
+const User = require("../../models/userModel");
 const bcrypt = require("bcryptjs");
-const generateToken = require("../utils/generateToken");
+const generateToken = require("../../utils/generateToken");
 
 const registerUser = async (req, res) => {
   const { username, password } = req.body;
   try {
     const userExists = await User.findOne({ username });
-    if (userExists)
-      return res.status(400).json({ message: "User already " });
+    if (userExists) return res.status(400).json({ message: "User already " });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ username, password: hashedPassword });
