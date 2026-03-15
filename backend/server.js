@@ -21,8 +21,15 @@ app.use("/api/messages", require("./routes/messageRoutes"));
 
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: "*" },
+  cors: {
+    origin: [
+      "http://localhost:5175",
+      "https://chat-app-project-dusky.vercel.app",
+    ],
+    methods: ["GET", "POST"],
+  },
 });
+
 const users = {}; 
 io.on("connection", (socket) => {
   console.log(" User connected:", socket.id);
